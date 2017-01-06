@@ -88,22 +88,31 @@ articleView.create = function() {
   formArticle.author = $('#article-author').val();
   formArticle.authorUrl = $('#article-author-url').val();
   formArticle.category = $('#article-category').val();
-  if($('#article-published').val()){
+  if($('#article-published').is(':checked')){
     var now = new Date;
     formArticle.publishedOn = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
   }
   $('#articles').html('');
   console.log(formArticle);
-  // TODO: Instantiate an article based on what's in the form fields:
+  // DONE: Instantiate an article based on what's in the form fields:
 
+  var newformArticle = new Article(formArticle);
+  console.log(newformArticle.toHtml());
+  $('#articles').append(newformArticle.toHtml());
   // TODO: Use our interface to the Handblebars template to put this new article into the DOM:
-
+  //See above!
   // TODO: Activate the highlighting of any code blocks:
-
+  $(document).ready(function() { $('pre code').each(function(i, block) { hljs.highlightBlock(block); }); });
   // TODO: Export the new article as JSON, so it's ready to copy/paste into blogArticles.js:
+  $('#article-export').show();
+  $('#article-json').attr('value', JSON.stringify(newformArticle));
+  $('#article-json').on('click', function () {
+    $(this).select();
+  })
 };
 
 
+/////////////////////////////////
 articleView.initIndexPage = function() {
   articleView.populateFilters();
   articleView.handleCategoryFilter();
