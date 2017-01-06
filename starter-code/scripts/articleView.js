@@ -66,17 +66,34 @@ articleView.setTeasers = function() {
 
 articleView.initNewArticlePage = function() {
   // TODO: Ensure the main .tab-content area is revealed. We might add more tabs later.
-
-  // TODO: The new articles we create will be copy/pasted into our source data file.
+  $('.tab-content').show();
+  // Done: The new articles we create will be copy/pasted into our source data file.
   // Set up this "export" functionality. We can hide the export field for now, and show it once we have data to export.
-
-  // TODO: Add an event listener/handler to update the preview and the export field if any inputs change.
+  $('#article-export').hide();
+  // Done: Add an event listener/handler to update the preview and the export field if any inputs change.
+  $('#write').on('change', function(){
+    articleView.create();
+  })
 };
 
 articleView.create = function() {
-  // TODO: Set up a var to hold the new article we are creating.
+  // Done: Set up a var to hold the new article we are creating.
   // Clear out the #articles element, so we can put in the updated preview
-
+  var formArticle = {};
+  // for(var input in $('#new-form')){
+    // formArticle.[$('input').attr('id')] = this.[$('input').val()]
+  // }
+  formArticle.title = $('#article-title').val();
+  formArticle.body = $('#article-body').val();
+  formArticle.author = $('#article-author').val();
+  formArticle.authorUrl = $('#article-author-url').val();
+  formArticle.category = $('#article-category').val();
+  if($('#article-published').val()){
+    var now = new Date;
+    formArticle.publishedOn = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
+  }
+  $('#articles').html('');
+  console.log(formArticle);
   // TODO: Instantiate an article based on what's in the form fields:
 
   // TODO: Use our interface to the Handblebars template to put this new article into the DOM:
